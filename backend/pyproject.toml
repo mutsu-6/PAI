@@ -1,0 +1,21 @@
+[tool.poetry]
+name = "mamenakata-backend"
+version = "0.1.0"
+description = "Backend for Mamenakata application"
+authors = ["Devin AI <devin-ai-integration[bot]@users.noreply.github.com>"]
+
+[tool.poetry.dependencies]
+python = "^3.9"
+fastapi = "^0.104.0"
+uvicorn = "^0.23.2"
+sqlalchemy = "^2.0.22"
+pydantic = "^2.4.2"
+python-dotenv = "^1.0.0"
+python-multipart = "^0.0.6"
+
+[tool.poetry.dev-dependencies]
+pytest = "^7.4.2"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
