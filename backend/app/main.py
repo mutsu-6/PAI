@@ -4,9 +4,15 @@ from sqlalchemy.orm import Session
 from typing import List, Optional
 from datetime import date, timedelta
 
-from . import schemas, crud
+from . import crud
 from .models import Base
 from .database import engine, get_db
+from .schemas import (
+    ContactResponse, ContactCreate, ContactUpdate,
+    EventResponse, EventCreate, EventUpdate,
+    GiftResponse, GiftCreate, GiftUpdate, GiftSuggestion,
+    ConversationResponse, ConversationCreate, ConversationUpdate
+)
 
 Base.metadata.create_all(bind=engine)
 
@@ -28,16 +34,16 @@ app.add_middleware(
 async def healthz():
     return {"status": "ok"}
 
-@app.post("/contacts/", response_model=schemas.ContactResponse)
-def create_contact(contact: schemas.ContactCreate, db: Session = Depends(get_db)):
+@app.post("/contacts/", response_model=ContactResponse)
+def create_contact(contact: ContactCreate, db: Session = Depends(get_db)):
     return crud.create_contact(db=db, contact=contact)
 
-@app.get("/contacts/", response_model=List[schemas.ContactResponse])
+@app.get("/contacts/", response_model=List[ContactResponse])
 def read_contacts(skip: int = 0, limit: int = 100, db: Session = Depends(get_db)):
     contacts = crud.get_contacts(db, skip=skip, limit=limit)
     return contacts
 
-@app.get("/contacts/{contact_id}", response_model=schemas.ContactResponse)
+@app.get("/contacts/{contact_id}", response_model=ContactResponse)
 def read_contact(contact_id: int, db: Session = Depends(get_db)):
     db_contact = crud.get_contact(db, contact_id=contact_id)
     if db_contact is None:
@@ -94,7 +100,7 @@ def delete_event(event_id: int, db: Session = Depends(get_db)):
     return result
 
 @app.post("/gifts/", response_model=schemas.GiftResponse)
-def create_gift(gift: schemas.GiftCreate, db: Session = Depends(get_db)):
+def create_gift(gift: GiftCreate, db: Session = Depends(get_db)):
     return crud.create_gift(db=db, gift=gift)
 
 @app.get("/gifts/", response_model=List[schemas.GiftResponse])
@@ -115,7 +121,7 @@ def read_gift(gift_id: int, db: Session = Depends(get_db)):
     return db_gift
 
 @app.put("/gifts/{gift_id}", response_model=schemas.GiftResponse)
-def update_gift(gift_id: int, gift: schemas.GiftUpdate, db: Session = Depends(get_db)):
+def update_gift(gift_id: int, gift: GiftUpdate, db: Session = Depends(get_db)):
     db_gift = crud.update_gift(db, gift_id=gift_id, gift=gift)
     if db_gift is None:
         raise HTTPException(status_code=404, detail="Gift not found")
