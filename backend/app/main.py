@@ -50,8 +50,8 @@ def read_contact(contact_id: int, db: Session = Depends(get_db)):
         raise HTTPException(status_code=404, detail="Contact not found")
     return db_contact
 
-@app.put("/contacts/{contact_id}", response_model=schemas.ContactResponse)
-def update_contact(contact_id: int, contact: schemas.ContactUpdate, db: Session = Depends(get_db)):
+@app.put("/contacts/{contact_id}", response_model=ContactResponse)
+def update_contact(contact_id: int, contact: ContactUpdate, db: Session = Depends(get_db)):
     db_contact = crud.update_contact(db, contact_id=contact_id, contact=contact)
     if db_contact is None:
         raise HTTPException(status_code=404, detail="Contact not found")
