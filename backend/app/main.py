@@ -5,6 +5,7 @@ from typing import List, Optional
 from datetime import date, timedelta
 
 from . import crud
+from .crud import get_upcoming_events
 from .models import Base
 from .database import engine, get_db
 from .schemas import (
