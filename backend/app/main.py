@@ -4,10 +4,11 @@ from sqlalchemy.orm import Session
 from typing import List, Optional
 from datetime import date, timedelta
 
-from . import models, schemas, crud
+from . import schemas, crud
+from .models import Base
 from .database import engine, get_db
 
-models.Base.metadata.create_all(bind=engine)
+Base.metadata.create_all(bind=engine)
 
 app = FastAPI(
     title="マメナカタ API",
