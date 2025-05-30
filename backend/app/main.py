@@ -6,7 +6,7 @@ from datetime import date, timedelta
 
 from . import crud
 from .crud import get_upcoming_events
-from .models import Base
+from .models import Base, Contact, Event, Gift, Conversation
 from .database import engine, get_db
 from .schemas import (
     ContactResponse, ContactCreate, ContactUpdate,

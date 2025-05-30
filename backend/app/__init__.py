@@ -1,2 +1,1 @@
-# Import all crud functions to make them available through the app.crud module
-from .crud import *
+from .models import Base, Contact, Event, Gift, Conversation

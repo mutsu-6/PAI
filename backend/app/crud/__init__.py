@@ -1,7 +1,7 @@
 from sqlalchemy.orm import Session
 from datetime import date, datetime, timedelta
 from typing import List, Optional
-from ..models import Contact, Event, Gift, Conversation
+from ..models import Contact, Event, Gift, Conversation, Base
 from ..schemas import (
     ContactCreate, ContactUpdate,
     EventCreate, EventUpdate,
